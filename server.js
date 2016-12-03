@@ -66,10 +66,13 @@ app.get('/off', function (req, res) {
 app.get('/christmas', function (red, res) {
     if (christmas_active) { //default to false
         clearInterval(christmas_interval);
-    } else {
+        piblaster.setPwm(RED_GPIO_PIN, 0);
+        piblaster.setPwm(GREEN_GPIO_PIN, 0);
+    } else { //start the show
         christmas_interval = setInterval(christmas, 3000);
     }
     christmas_active = !christmas_active; //toggle christmas active
+    res.send("Christmas Activated");
 });
 
 // Start listening on port 3000.
