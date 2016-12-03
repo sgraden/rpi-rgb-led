@@ -1,0 +1,23 @@
+{
+  "name": "rpi-rgb-led",
+  "version": "0.0.0",
+  "description": "Controlling RGB LED light strip via Raspberry Pi",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sgraden/rpi-rgb-led.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sgraden/rpi-rgb-led/issues"
+  },
+  "dependencies": {
+    "express": "^4.14.0",
+    "pi-blaster.js": "^0.1.1",
+    "rpi-gpio": "^0.7.0"
+  }
+}
