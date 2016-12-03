@@ -9,6 +9,11 @@ var RED_GPIO_PIN = 17;
 var GREEN_GPIO_PIN = 22;
 var BLUE_GPIO_PIN = 24;
 
+//christmas lights
+var christmas_interval;
+var christmas_active = false;
+var red_on = false;
+
 
 //Serve public content - basically any file in the public folder will be available on the server.
 app.use(express.static(path.join(__dirname, 'public')));
@@ -56,7 +61,16 @@ app.get('/off', function (req, res) {
     piblaster.setPwm(GREEN_GPIO_PIN, 0);
     piblaster.setPwm(BLUE_GPIO_PIN, 0);
     res.send('ok');
-})
+});
+
+app.get('/christmas', function (red, res) {
+    if (christmas_active) { //default to false
+        clearInterval(christmas_interval);
+    } else {
+        christmas_interval = setInterval(christmas(), 3000);
+    }
+    christmas_active = !christmas_active; //toggle christmas active
+});
 
 // Start listening on port 3000.
 var server = app.listen(3000, function () {
@@ -64,3 +78,14 @@ var server = app.listen(3000, function () {
     var port = server.address().port;
     console.log('RGB LED Slider listening at http://%s:%s', host, port);
 });
+
+function christmas () {
+    if (red_on) {
+        piblaster.setPwm(RED_GPIO_PIN, 0);
+        piblaster.setPwm(GREEN_GPIO_PIN, 0.8);
+    } else {
+        piblaster.setPwm(RED_GPIO_PIN, 0.8);
+        piblaster.setPwm(GREEN_GPIO_PIN, 0);
+    }
+    red_on = !red_on; //toggle red_on
+}
