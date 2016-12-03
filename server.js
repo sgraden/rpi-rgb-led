@@ -67,7 +67,7 @@ app.get('/christmas', function (red, res) {
     if (christmas_active) { //default to false
         clearInterval(christmas_interval);
     } else {
-        christmas_interval = setInterval(christmas(), 3000);
+        christmas_interval = setInterval(christmas, 3000);
     }
     christmas_active = !christmas_active; //toggle christmas active
 });
