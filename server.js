@@ -50,6 +50,14 @@ app.get('/blue', function (req, res) {
     // }
 });
 
+app.get('/off', function (req, res) {
+    console.log("Off");
+    piblaster.setPwm(RED_GPIO_PIN, 0);
+    piblaster.setPwm(GREEN_GPIO_PIN, 0);
+    piblaster.setPwm(BLUE_GPIO_PIN, 0);
+    res.send('ok');
+})
+
 // Start listening on port 3000.
 var server = app.listen(3000, function () {
     var host = server.address().address;
