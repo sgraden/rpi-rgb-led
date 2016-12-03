@@ -20,34 +20,34 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/red', function (req, res) {
     console.log("red = " + req.params.value);
     var redValue = req.params.value;
-    if( !isNaN( parseInt(redValue) ) ){
+    //if( !isNaN( parseInt(redValue) ) ){
         piblaster.setPwm(RED_GPIO_PIN, 1);//redValue/255);
         res.send('ok');
-    } else {
-        res.status(400).send('error');
-    }
+    // } else {
+    //     res.status(400).send('error');
+    // }
 });
 
 app.get('/green', function (req, res) {
     console.log("green = " + req.params.value);
     var greenValue = req.params.value;
-    if( !isNaN( parseInt(greenValue) ) ){
+    //if( !isNaN( parseInt(greenValue) ) ){
         piblaster.setPwm(GREEN_GPIO_PIN, 1);//greenValue/255);
         res.send('ok');
-    } else {
-        res.status(400).send('error');
-    }
+    // } else {
+    //     res.status(400).send('error');
+    // }
 });
 
 app.get('/blue', function (req, res) {
     console.log("blue = " + req.params.value);
     var blueValue = req.params.value;
-    if( !isNaN( parseInt(blueValue) ) ){
+    //if( !isNaN( parseInt(blueValue) ) ){
         piblaster.setPwm(BLUE_GPIO_PIN, 1);//blueValue/255);
         res.send('ok');
-    } else {
-        res.status(400).send('error');
-    }
+    // } else {
+    //     res.status(400).send('error');
+    // }
 });
 
 // Start listening on port 3000.
