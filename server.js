@@ -15,7 +15,7 @@ var christmas_active = false;
 var red_on = false;
 
 
-//Serve public content - basically any file in the public folder will be available on the server.
+//Serve public content - basicsally any file in the public folder will be available on the server.
 app.use(express.static(path.join(__dirname, 'public')));
 
 //We also need 3 services - Red, Green and Blue.
@@ -26,8 +26,8 @@ app.get('/red', function (req, res) {
     console.log("red = " + req.params.value);
     var redValue = req.params.value;
     //if( !isNaN( parseInt(redValue) ) ){
-        piblaster.setPwm(RED_GPIO_PIN, 1);//redValue/255);
-        res.send('ok');
+        piblaster.setPwm(RED_GPIO_PIN, 1); //redValue/255);
+        res.send('Red');
     // } else {
     //     res.status(400).send('error');
     // }
@@ -38,7 +38,7 @@ app.get('/green', function (req, res) {
     var greenValue = req.params.value;
     //if( !isNaN( parseInt(greenValue) ) ){
         piblaster.setPwm(GREEN_GPIO_PIN, 1);//greenValue/255);
-        res.send('ok');
+        res.send('Green');
     // } else {
     //     res.status(400).send('error');
     // }
@@ -49,7 +49,7 @@ app.get('/blue', function (req, res) {
     var blueValue = req.params.value;
     //if( !isNaN( parseInt(blueValue) ) ){
         piblaster.setPwm(BLUE_GPIO_PIN, 1);//blueValue/255);
-        res.send('ok');
+        res.send('Blue');
     // } else {
     //     res.status(400).send('error');
     // }
@@ -57,10 +57,11 @@ app.get('/blue', function (req, res) {
 
 app.get('/off', function (req, res) {
     console.log("Off");
+    clearInterval(christmas_interval);
     piblaster.setPwm(RED_GPIO_PIN, 0);
     piblaster.setPwm(GREEN_GPIO_PIN, 0);
     piblaster.setPwm(BLUE_GPIO_PIN, 0);
-    res.send('ok');
+    res.send('Shutting off');
 });
 
 app.get('/christmas', function (red, res) {
@@ -72,7 +73,12 @@ app.get('/christmas', function (red, res) {
         christmas_interval = setInterval(christmas, 3000);
     }
     christmas_active = !christmas_active; //toggle christmas active
-    res.send("Christmas Activated");
+
+    if (christmas_active) {
+        res.send("Christmas Activated");
+    } else {
+        res.send("Christmas Deactivated");
+    }
 });
 
 // Start listening on port 3000.
@@ -85,9 +91,9 @@ var server = app.listen(3000, function () {
 function christmas () {
     if (red_on) {
         piblaster.setPwm(RED_GPIO_PIN, 0);
-        piblaster.setPwm(GREEN_GPIO_PIN, 0.8);
+        piblaster.setPwm(GREEN_GPIO_PIN, 1);
     } else {
-        piblaster.setPwm(RED_GPIO_PIN, 0.8);
+        piblaster.setPwm(RED_GPIO_PIN, 1);
         piblaster.setPwm(GREEN_GPIO_PIN, 0);
     }
     red_on = !red_on; //toggle red_on
